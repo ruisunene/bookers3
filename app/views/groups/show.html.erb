@@ -11,6 +11,7 @@
       <table class='table table-hover table-inverse'>
         <thead>
           <tr>
+            <th></th>
             <th>グループ名</th>
             <th>紹介文</th>
             <th>メンバー</th>
@@ -22,11 +23,11 @@
             <td><%= image_tag @group.get_image, size:'50x50' %></td>
             <td><%= @group.name %></td>
             <td><%= @group.introduction %></td>
-            <tb>
+            <td>
               <% @group.users.each do |member| %>
                 <%= member.name %><br>
               <% end %>
-            </tb>
+            </td>
             <td>
               <% if @group.owner_id == current_user.id %>
                 <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
