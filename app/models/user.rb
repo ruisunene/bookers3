@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :books
 
+  # グループ機能
+  has_many :group_users
+  has_many :groups, through: :group_users
+
   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   # 被フォロー関係を通じて参照→自分をフォローしている人
@@ -20,6 +24,8 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_one_attached :profile_image
+  has_one_attached :image
+  #attachment :profile_image, destroy: false
 
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
