@@ -27,12 +27,9 @@ class User < ApplicationRecord
   has_one_attached :image
   #attachment :profile_image, destroy: false
 
-  #DMの機能
-  #has_many :user_rooms
-  #has_many :chats
-  #has_many :rooms, through: :user_rooms
-  has_many :user_rooms, dependent: :destroy
-  has_many :chats, dependent: :destroy
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
 
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
