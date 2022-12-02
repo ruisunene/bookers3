@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+    @bookmarks = Bookmark.where(user_id: current_user.id)
   end
 
   def index

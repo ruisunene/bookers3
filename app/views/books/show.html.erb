@@ -25,6 +25,12 @@
           </td>
           <td class="view-count">閲覧数: <%= @book.view_counts.count %></td>
 
+          <% if @book.bookmarked_by?(current_user) %>
+          <td><%= link_to "ブックマークを外す", book_bookmarks_path(@book), method: :delete %></td>
+          <% else %>
+          <td><%= link_to "ブックマーク", book_bookmarks_path(@book), method: :post %></td>
+          <% end %>
+
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>

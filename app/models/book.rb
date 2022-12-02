@@ -6,6 +6,7 @@ class Book < ApplicationRecord
   has_many :favorited_users, through: :favorites, source: :user
   #has_many :week_favorites, -> { where(created_at: ((Time.current.at_end_of_day - 6.day).at_beginning_of_day)..(Time.current.at_end_of_day)) }, class_name: 'Favorite'
   has_many :view_counts, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy #ブックマーク機能
 
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
@@ -25,5 +26,10 @@ class Book < ApplicationRecord
       Book.where('title LIKE ?', '%'+content+'%')
     end
   end
+
+  def bookmarked_by?(user)
+    bookmarks.where(user_id: user).exists?
+  end
+  #bookmarked_by?(user)を追加することで既にブックマークしているかを検証
 
 end
